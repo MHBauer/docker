@@ -9,10 +9,10 @@ import (
 	"strings"
 
 	"github.com/Sirupsen/logrus"
-	"github.com/docker/docker/api"
+	"github.com/docker/docker/api" // is this going to move as well to engine-api?
 	"github.com/docker/docker/api/server/httputils"
-	"github.com/docker/docker/dockerversion"
-	"github.com/docker/docker/errors"
+	"github.com/docker/docker/dockerversion" // generated?
+	"github.com/docker/docker/errors"        // pkg?
 	"github.com/docker/docker/pkg/authorization"
 	"github.com/docker/docker/pkg/ioutils"
 	"github.com/docker/docker/pkg/version"

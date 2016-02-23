@@ -5,7 +5,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/docker/docker/runconfig"
+	"github.com/docker/docker/runconfig" // is predefined network function
 	"github.com/docker/engine-api/types/filters"
 	"github.com/docker/libnetwork"
 )

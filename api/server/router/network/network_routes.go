@@ -8,7 +8,7 @@ import (
 	"golang.org/x/net/context"
 
 	"github.com/docker/docker/api/server/httputils"
-	"github.com/docker/docker/runconfig"
+	"github.com/docker/docker/runconfig" // ispredefinednetwork function
 	"github.com/docker/engine-api/types"
 	"github.com/docker/engine-api/types/filters"
 	"github.com/docker/engine-api/types/network"

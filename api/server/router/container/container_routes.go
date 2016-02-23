@@ -18,7 +18,7 @@ import (
 	"github.com/docker/docker/pkg/ioutils"
 	"github.com/docker/docker/pkg/signal"
 	"github.com/docker/docker/pkg/term"
-	"github.com/docker/docker/runconfig"
+	"github.com/docker/docker/runconfig" // used for decoders
 	"github.com/docker/docker/utils"
 	"github.com/docker/engine-api/types"
 	"github.com/docker/engine-api/types/container"

@@ -3,7 +3,7 @@ package image
 import (
 	"io"
 
-	"github.com/docker/docker/reference"
+	"github.com/docker/docker/reference" // eh, I don't have a problem with this. Does it move with this to api? does it become a pkg?
 	"github.com/docker/engine-api/types"
 	"github.com/docker/engine-api/types/container"
 	"github.com/docker/engine-api/types/registry"

@@ -1,7 +1,7 @@
 package build
 
 import (
-	"github.com/docker/docker/builder"
+	"github.com/docker/docker/builder" // this context is a problem, do we copy over into types? move into types?
 	"github.com/docker/engine-api/types"
 	"io"
 )

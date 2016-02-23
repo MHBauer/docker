@@ -10,7 +10,7 @@ import (
 	"github.com/docker/docker/api/server/httputils"
 	"github.com/docker/docker/api/server/router"
 	"github.com/docker/docker/pkg/authorization"
-	"github.com/docker/docker/utils"
+	"github.com/docker/docker/utils" // pkg?
 	"github.com/gorilla/mux"
 	"golang.org/x/net/context"
 )
