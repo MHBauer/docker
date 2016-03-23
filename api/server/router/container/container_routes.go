@@ -16,7 +16,6 @@ import (
 	"github.com/docker/docker/pkg/ioutils"
 	"github.com/docker/docker/pkg/signal"
 	"github.com/docker/docker/pkg/term"
-	"github.com/docker/docker/runconfig"
 	"github.com/docker/engine-api/types"
 	"github.com/docker/engine-api/types/container"
 	"github.com/docker/engine-api/types/filters"
@@ -143,21 +142,13 @@ func (s *containerRouter) postContainersStart(ctx context.Context, w http.Respon
 	// net/http otherwise seems to swallow any headers related to chunked encoding
 	// including r.TransferEncoding
 	// allow a nil body for backwards compatibility
-	var hostConfig *container.HostConfig
 	if r.Body != nil && (r.ContentLength > 0 || r.ContentLength == -1) {
 		if err := httputils.CheckForJSON(r); err != nil {
 			return err
 		}
-
-		c, err := runconfig.DecodeHostConfig(r.Body)
-		if err != nil {
-			return err
-		}
-
-		hostConfig = c
 	}
 
-	if err := s.backend.ContainerStart(vars["name"], hostConfig); err != nil {
+	if err := s.backend.ContainerStart(vars["name"], r.Body); err != nil {
 		return err
 	}
 	w.WriteHeader(http.StatusNoContent)
@@ -350,19 +341,13 @@ func (s *containerRouter) postContainersCreate(ctx context.Context, w http.Respo
 
 	name := r.Form.Get("name")
 
-	config, hostConfig, networkingConfig, err := runconfig.DecodeContainerConfig(r.Body)
-	if err != nil {
-		return err
-	}
 	version := httputils.VersionFromContext(ctx)
 	adjustCPUShares := version.LessThan("1.19")
 
 	ccr, err := s.backend.ContainerCreate(types.ContainerCreateConfig{
-		Name:             name,
-		Config:           config,
-		HostConfig:       hostConfig,
-		NetworkingConfig: networkingConfig,
-		AdjustCPUShares:  adjustCPUShares,
+		ConfigReader:    r.Body,
+		Name:            name,
+		AdjustCPUShares: adjustCPUShares,
 	})
 	if err != nil {
 		return err

@@ -2,6 +2,7 @@ package daemon
 
 import (
 	"fmt"
+	"io"
 	"net/http"
 	"runtime"
 	"strings"
@@ -16,7 +17,14 @@ import (
 )
 
 // ContainerStart starts a container.
-func (daemon *Daemon) ContainerStart(name string, hostConfig *containertypes.HostConfig) error {
+func (daemon *Daemon) ContainerStart(name string, config io.Reader) error {
+
+	var hostConfig *containertypes.HostConfig
+	hostConfig, err := runconfig.DecodeHostConfig(config)
+	if err != nil {
+		return err
+	}
+
 	container, err := daemon.GetContainer(name)
 	if err != nil {
 		return err

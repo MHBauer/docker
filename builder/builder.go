@@ -122,7 +122,7 @@ type Backend interface {
 	// Kill stops the container execution abruptly.
 	ContainerKill(containerID string, sig uint64) error
 	// Start starts a new container
-	ContainerStart(containerID string, hostConfig *container.HostConfig) error
+	ContainerStart(containerID string, config io.Reader) error
 	// ContainerWait stops processing until the given container is stopped.
 	ContainerWait(containerID string, timeout time.Duration) (int, error)
 	// ContainerUpdateCmd updates container.Path and container.Args

@@ -1,6 +1,8 @@
 package types
 
 import (
+	"io"
+
 	"github.com/docker/engine-api/types/container"
 	"github.com/docker/engine-api/types/network"
 )
@@ -11,6 +13,7 @@ import (
 
 // ContainerCreateConfig is the parameter set to ContainerCreate()
 type ContainerCreateConfig struct {
+	ConfigReader     io.Reader
 	Name             string
 	Config           *container.Config
 	HostConfig       *container.HostConfig

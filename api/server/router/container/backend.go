@@ -38,7 +38,7 @@ type stateBackend interface {
 	ContainerResize(name string, height, width int) error
 	ContainerRestart(name string, seconds int) error
 	ContainerRm(name string, config *types.ContainerRmConfig) error
-	ContainerStart(name string, hostConfig *container.HostConfig) error
+	ContainerStart(name string, config io.Reader) error
 	ContainerStop(name string, seconds int) error
 	ContainerUnpause(name string) error
 	ContainerUpdate(name string, hostConfig *container.HostConfig) ([]string, error)
