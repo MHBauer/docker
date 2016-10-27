@@ -1,6 +1,7 @@
 package stdcopy
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/binary"
 	"errors"
@@ -176,6 +177,10 @@ func StdCopy(dstout, dsterr io.Writer, src io.Reader) (written int64, err error)
 			return 0, io.ErrShortWrite
 		}
 		written += int64(nw)
+		if out, ok := out.(*bufio.Writer); ok {
+			logrus.Errorf("flushing a heretofore previously unflushed buffer")
+			out.Flush()
+		}
 
 		// Move the rest of the buffer to the beginning
 		copy(buf, buf[frameSize+stdWriterPrefixLen:])
