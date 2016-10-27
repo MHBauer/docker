@@ -1,6 +1,7 @@
 package container
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -527,6 +528,10 @@ func copyEscapable(dst io.Writer, src io.ReadCloser, keys []byte) (written int64
 			if nr != nw {
 				err = io.ErrShortWrite
 				break
+			}
+			if out, ok := dst.(*bufio.Writer); ok {
+				logrus.Errorf("flushing a heretofore previously unflushed buffer")
+				out.Flush()
 			}
 		}
 		if er == io.EOF {
